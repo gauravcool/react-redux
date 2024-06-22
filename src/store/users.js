@@ -3,11 +3,16 @@ import axios from 'axios';
 
 export const fetchUser = createAsyncThunk(
     'users/fetchUser',
-    async(thunkAPI)=>{
-        const res = await axios.get('https://jsonplaceholder.typicode.com/users').then(
-        (response) => response.data
-        );
-        return res;
+    async(obj, thunkAPI)=>{
+
+        console.log(thunkAPI);
+        thunkAPI.dispatch(testAsyncDispatch());
+        try {
+            const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${obj.id}`);
+            return res.data;
+        } catch(error) {
+            return error;
+        }
     }
 );
 
@@ -21,6 +26,9 @@ export const usersSlice = createSlice({
         setType:(state, action)=>{
             state.type = action.payload || 'Guest'
         },
+        testAsyncDispatch:(state)=>{
+            state.test = true;
+        }
     },
     extraReducers:(builder)=>{
         builder
@@ -29,7 +37,6 @@ export const usersSlice = createSlice({
         })
         .addCase(fetchUser.fulfilled, (state, action)=>{
             console.log('fulfilled');
-            console.log(action.payload);
             state.users = action.payload;
         })
         .addCase(fetchUser.rejected,(state)=>{
@@ -38,5 +45,5 @@ export const usersSlice = createSlice({
     }
 });
 
-export const {setType} = usersSlice.actions;
+export const {setType, testAsyncDispatch} = usersSlice.actions;
 export default usersSlice.reducer;

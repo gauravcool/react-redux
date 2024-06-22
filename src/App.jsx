@@ -22,7 +22,7 @@ const App = () => {
       <button onClick={()=> dispatch(setType('Admin'))}>
         Set type
       </button> */}
-      <button onClick={() => dispatch(fetchUser())}>
+      <button onClick={() => dispatch(fetchUser({id:'1'}))}>
         Get users
       </button>
     </>

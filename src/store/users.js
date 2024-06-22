@@ -3,13 +3,14 @@ import axios from 'axios';
 
 export const fetchUser = createAsyncThunk(
     'users/fetchUser',
-    async(obj, {rejectWithValue})=>{
+    async(obj, {rejectWithValue, fulfillWithValue})=>{
 
         // console.log(thunkAPI);
         // thunkAPI.dispatch(testAsyncDispatch());
         try {
-            const res = await axios.get(`https://jsonplaceholder.typicode.com/users/111`);
-            return res.data;
+            const res = await axios.get(`https://jsonplaceholder.typicode.com/users`);
+            return fulfillWithValue(res.data);
+            // return res.data;
         } catch(error) {
             return rejectWithValue('Ooops I did it again!!!!');
         }

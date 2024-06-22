@@ -8,7 +8,7 @@ export const fetchUser = createAsyncThunk(
         // console.log(thunkAPI);
         // thunkAPI.dispatch(testAsyncDispatch());
         try {
-            const res = await axios.get(`https://jsonplaceholder.typicode.com/users`);
+            const res = await axios.get(`https://jsonplaceholder.typicode.com/users/111`);
             return fulfillWithValue(res.data);
             // return res.data;
         } catch(error) {

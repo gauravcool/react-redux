@@ -3,15 +3,15 @@ import axios from 'axios';
 
 export const fetchUser = createAsyncThunk(
     'users/fetchUser',
-    async(obj, thunkAPI)=>{
+    async(obj, {rejectWithValue})=>{
 
-        console.log(thunkAPI);
-        thunkAPI.dispatch(testAsyncDispatch());
+        // console.log(thunkAPI);
+        // thunkAPI.dispatch(testAsyncDispatch());
         try {
-            const res = await axios.get(`https://jsonplaceholder.typicode.com/users`);
+            const res = await axios.get(`https://jsonplaceholder.typicode.com/users/111`);
             return res.data;
         } catch(error) {
-            return error;
+            return rejectWithValue('Ooops I did it again!!!!');
         }
     }
 );
@@ -41,6 +41,8 @@ export const usersSlice = createSlice({
             state.users = action.payload;
         })
         .addCase(fetchUser.rejected,(state, action)=>{
+            state.loading = false;
+            // console.log('REJECTED');
             console.log(action.payload);
         })
     }

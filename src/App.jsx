@@ -22,9 +22,7 @@ const App = () => {
       <button onClick={()=> dispatch(setType('Admin'))}>
         Set type
       </button> */}
-      <button onClick={() => dispatch(fetchUser({id:'1'}))}>
-        Get users
-      </button>
+      
       <div>{users.loading ? 'loading...': null}</div>
       <ul>
         {users ? 
@@ -34,6 +32,9 @@ const App = () => {
           : null
         }
       </ul>
+      <button onClick={() => dispatch(fetchUser({id:'1'}))}>
+        Get users
+      </button>
     </>
   )
 }
